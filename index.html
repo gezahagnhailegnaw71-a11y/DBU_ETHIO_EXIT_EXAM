@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DBU Exit Exam Practice System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- =============== HOME =============== -->
+<div id="homePage" class="page active">
+  <header class="header">
+    <h1>🎓 DBU Exit Exam Practice</h1>
+    <p>All Departments • All Courses • One Website</p>
+  </header>
+
+  <div class="container">
+    <div class="hero">
+      <h2>Practice for Your Exit Exam — Anywhere, Anytime</h2>
+      <p>Register once, pay <b>100 Birr</b>, unlock <b>all DBU departments and courses</b>.</p>
+      <div class="btn-row">
+        <button class="btn primary" onclick="showPage('registerPage')">📝 Register</button>
+        <button class="btn secondary" onclick="showPage('loginPage')">🔐 Login</button>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="card">
+        <h3>📚 All Departments</h3>
+        <p>Computer Science, Law, Nursing, Accounting, Civil Eng., Software Eng., and 45+ more.</p>
+      </div>
+      <div class="card">
+        <h3>📖 Course-by-Course</h3>
+        <p>Practice one course at a time — like the real exit exam.</p>
+      </div>
+      <div class="card">
+        <h3>💰 Only 100 Birr</h3>
+        <p>Pay via Telebirr or CBE Birr. Lifetime access.</p>
+      </div>
+      <div class="card">
+        <h3>📊 Track Progress</h3>
+        <p>See your scores and improve day by day.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =============== REGISTER =============== -->
+<div id="registerPage" class="page">
+  <header class="header">
+    <h1>📝 Register</h1>
+    <p>Pay 100 Birr → Get username & password</p>
+  </header>
+  <div class="container form-box">
+    <label>Full Name</label>
+    <input type="text" id="regFullName" placeholder="Abebe Kebede">
+
+    <label>Username</label>
+    <input type="text" id="regUsername" placeholder="abebe123 (3–20 letters/numbers)">
+
+    <label>Password (minimum 8 characters)</label>
+    <input type="password" id="regPassword" placeholder="At least 8 characters">
+    <small id="pwHint" style="color:#718096;font-size:12px"></small>
+
+    <label>Department</label>
+    <select id="regDepartment">
+      <option value="">Loading departments...</option>
+    </select>
+
+    <div class="pay-box">
+      <h3>💳 Payment — 100 Birr</h3>
+      <p>Choose payment method:</p>
+
+      <label style="margin-top:8px">Payment Method</label>
+      <select id="regPayMethod">
+        <option value="">-- Select --</option>
+        <option value="telebirr">Telebirr (Ethio Telecom)</option>
+        <option value="cbe">CBE Birr</option>
+      </select>
+
+      <div id="telebirrInfo" style="display:none;margin-top:10px;background:#dbeafe;padding:10px;border-radius:6px">
+        <p><b>📱 Telebirr Instructions:</b></p>
+        <p>1. Send 100 Birr to <b>0911-XXXXXX</b> (DBU Exit Exam).</p>
+        <p>2. Enter the Telebirr transaction reference (10–12 digits).</p>
+      </div>
+
+      <div id="cbeInfo" style="display:none;margin-top:10px;background:#dcfce7;padding:10px;border-radius:6px">
+        <p><b>🏦 CBE Birr Instructions:</b></p>
+        <p>1. Send 100 Birr to <b>1000-XXXXXXX</b> (DBU Exit Exam).</p>
+        <p>2. Enter the 13-digit CBE reference (must start with 1000).</p>
+      </div>
+
+      <label>Payment Reference</label>
+      <input type="text" id="regPaymentRef" placeholder="Enter payment reference number">
+    </div>
+
+    <button class="btn primary" onclick="registerUser()">✅ Register & Pay</button>
+    <button class="btn secondary" onclick="showPage('homePage')">← Back</button>
+    <p id="regMsg" class="msg"></p>
+  </div>
+</div>
+
+<!-- =============== LOGIN =============== -->
+<div id="loginPage" class="page">
+  <header class="header">
+    <h1>🔐 Login</h1>
+    <p>Enter your username and password</p>
+  </header>
+  <div class="container form-box">
+    <label>Username</label>
+    <input type="text" id="loginUsername">
+
+    <label>Password</label>
+    <input type="password" id="loginPassword">
+
+    <button class="btn primary" onclick="loginUser()">Login</button>
+    <button class="btn secondary" onclick="showPage('homePage')">← Back</button>
+    <p id="loginMsg" class="msg"></p>
+  </div>
+</div>
+
+<!-- =============== DASHBOARD =============== -->
+<div id="dashboardPage" class="page">
+  <header class="header">
+    <h1>📚 My Courses</h1>
+    <p id="welcomeUser"></p>
+    <button class="btn small" onclick="logout()">Logout</button>
+  </header>
+  <div class="container">
+    <div id="coursesList" class="grid"></div>
+    <h3 style="margin-top:30px">📊 My Recent Results</h3>
+    <div id="myResults"></div>
+  </div>
+</div>
+
+<!-- =============== EXAM =============== -->
+<div id="examPage" class="page">
+  <header class="header">
+    <h1 id="examTitle">📝 Exam</h1>
+    <p id="examProgress"></p>
+  </header>
+  <div class="container">
+    <div id="questionBox"></div>
+  </div>
+</div>
+
+<!-- =============== RESULT =============== -->
+<div id="resultPage" class="page">
+  <header class="header"><h1>✅ Result</h1></header>
+  <div class="container form-box">
+    <h2 id="resultScore"></h2>
+    <p id="resultMsg"></p>
+    <button class="btn primary" onclick="showPage('dashboardPage')">Back to Dashboard</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
